@@ -8,6 +8,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,15 @@ import { HttpClientModule } from '@angular/common/http';
     MainLayoutComponent,
     MainPageComponent,
     ProductPageComponent,
-    CartPageComponent
+    CartPageComponent,
+    SignUpPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
