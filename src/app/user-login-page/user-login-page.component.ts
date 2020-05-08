@@ -20,7 +20,6 @@ export class UserLoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      name: new FormControl(null, [Validators.required, Validators.maxLength(25)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     })
@@ -34,17 +33,14 @@ export class UserLoginPageComponent implements OnInit {
     this.submitted = true;
 
     const user = {
-      name: this.form.value.name,
       email: this.form.value.email,
       password: this.form.value.password,
     }
 
     this.loginSubsc = this.auth
       .login(user)
-      .subscribe(response => {
-        console.log(response)
+      .subscribe(() => {
         this.form.reset;
-        this.router.navigate(['/login']);
         this.submitted = false;
       }, () => {
         this.submitted = false;

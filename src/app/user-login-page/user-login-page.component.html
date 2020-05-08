@@ -7,15 +7,6 @@
     <h2>Login</h2>
 
     <div class="form-control">
-      <label for="name">Name</label>
-      <input id="name" type="name" formControlName="name">
-      <div *ngIf="form.get('name').touched && form.get('name').invalid" class="validation">
-        <small *ngIf="form.get('name').errors.required">Enter name</small>
-        <small *ngIf="form.get('name').errors.name">Max length 25 characters</small>
-      </div>
-    </div>
-
-    <div class="form-control">
       <label for="email">Email</label>
       <input id="email" type="email" formControlName="email">
       <div *ngIf="form.get('email').touched && form.get('email').invalid" class="validation">
@@ -40,7 +31,7 @@
       class="btn btn-primary btn-block"
       [disabled]="form.invalid || submitted"
     >
-      Sing up
+      Login
     </button>
 
   </form>

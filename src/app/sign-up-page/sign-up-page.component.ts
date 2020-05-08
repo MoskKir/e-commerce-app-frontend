@@ -37,17 +37,14 @@ export class SignUpPageComponent implements OnInit {
       name: this.form.value.name,
       email: this.form.value.email,
       password: this.form.value.password,
-      returnSecureToken: true,
     }
 
-    console.log(user)
-
     this.loginSubsc = this.auth
-      .login(user)
+      .singup(user)
       .subscribe(response => {
         console.log(response)
         this.form.reset;
-        this.router.navigate(['/']);
+        this.router.navigate(['login']);
         this.submitted = false;
       }, () => {
         this.submitted = false;
