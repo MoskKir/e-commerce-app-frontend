@@ -12,4 +12,8 @@ export class ProductService {
     console.log(product)
     return this.http.post('http://localhost:3003/api/products', product)
   }
+
+  getAll() {
+    return this.http.get('http://localhost:3003/api/products')
+  }
 }
