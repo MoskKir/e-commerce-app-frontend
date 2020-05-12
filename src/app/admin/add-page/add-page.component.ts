@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class AddPageComponent implements OnInit {
 
   form: FormGroup;
+  submitted = false;
 
   constructor() { }
 
@@ -27,6 +28,8 @@ export class AddPageComponent implements OnInit {
       return
     }
 
+    this.submitted = true;
+
     const product = {
       type: this.form.value.type,
       title: this.form.value.title,
@@ -34,6 +37,8 @@ export class AddPageComponent implements OnInit {
       info: this.form.value.info,
       price: this.form.value.price,
     }
+
+    console.log(product)
   }
 
 }
