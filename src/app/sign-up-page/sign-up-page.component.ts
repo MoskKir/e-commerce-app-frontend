@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SingupService } from '../shared/singup.service';
+import { AuthCustomersService } from '../shared/auth-customers.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class SignUpPageComponent implements OnInit {
   loginSubsc: any;
 
   constructor(
-    public auth: SingupService,
+    public auth: AuthCustomersService,
     private router: Router,
   ) { }
 

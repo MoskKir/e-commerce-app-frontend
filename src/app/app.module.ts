@@ -12,9 +12,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginPageComponent } from './user-login-page/user-login-page.component';
-import { UserModule } from './shared/store/user.module';
 import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthCustomersService } from './shared/auth-customers.service';
+import { AuthEffects } from './shared/store/user/auth.effects';
+import { reducers } from './shared/store/app.states';
+import { AuthModule } from './shared/store/auth.module';
 
 @NgModule({
   declarations: [
@@ -32,19 +36,16 @@ import { environment } from 'src/environments/environment';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}, {
-      runtimeChecks: {
-        strictActionImmutability: true,
-        strictStateImmutability: true
-      }
-    }),
+
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    UserModule
+    AuthModule, // уточнить этот вопрос
   ],
-  providers: [],
+  providers: [AuthCustomersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

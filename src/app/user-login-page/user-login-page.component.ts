@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SingupService } from '../shared/singup.service';
+import { AuthCustomersService } from '../shared/auth-customers.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { LogIn } from '../shared/store/user/auth.actions';
+import { AppState } from '../shared/store/app.states';
 
 @Component({
   selector: 'app-user-login-page',
@@ -14,8 +17,9 @@ export class UserLoginPageComponent implements OnInit {
   loginSubsc: any;
 
   constructor(
-    public auth: SingupService,
+    public auth: AuthCustomersService,
     private router: Router,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -25,7 +29,7 @@ export class UserLoginPageComponent implements OnInit {
     })
   }
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) {
       return;
     }
@@ -37,14 +41,19 @@ export class UserLoginPageComponent implements OnInit {
       password: this.form.value.password,
     }
 
-    this.loginSubsc = this.auth
-      .login(user)
-      .subscribe(() => {
-        this.form.reset;
-        this.submitted = false;
-      }, () => {
-        this.submitted = false;
-      })
+    this.store.dispatch(new LogIn(user));
+
+
+    // this.loginSubsc = this.auth
+    // .login(user)
+    // .subscribe(() => {
+    //   // здесь нужен диспатч на стейт
+    //     // this.store.dispatch(new GetUserAction(user))
+    //     this.form.reset;
+    //     this.submitted = false;
+    //   }, () => {
+    //     this.submitted = false;
+    //   })
   }
 
   ngOnDestroy() {
