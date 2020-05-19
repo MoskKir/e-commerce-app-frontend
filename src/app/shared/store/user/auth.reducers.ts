@@ -27,6 +27,15 @@ export const reducer = (state = initialState, action: All): State => {
         token: action.payload.token,
         errorMessage: null
       };
+    case AuthActionTypes.LOGIN_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Incorrect email and/or password.'
+      };
+    }
+    case AuthActionTypes.LOGOUT: {
+      return initialState;
+    }
     default:
       return state;
   }

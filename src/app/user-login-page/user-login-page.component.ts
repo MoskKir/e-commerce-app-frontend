@@ -14,7 +14,6 @@ import { AppState } from '../shared/store/app.states';
 export class UserLoginPageComponent implements OnInit {
   form: FormGroup;
   submitted = false;
-  loginSubsc: any;
 
   constructor(
     public auth: AuthCustomersService,
@@ -43,21 +42,6 @@ export class UserLoginPageComponent implements OnInit {
 
     this.store.dispatch(new LogIn(user));
 
-
-    // this.loginSubsc = this.auth
-    // .login(user)
-    // .subscribe(() => {
-    //   // здесь нужен диспатч на стейт
-    //     // this.store.dispatch(new GetUserAction(user))
-    //     this.form.reset;
-    //     this.submitted = false;
-    //   }, () => {
-    //     this.submitted = false;
-    //   })
-  }
-
-  ngOnDestroy() {
-    if (this.loginSubsc) this.loginSubsc.unsubscribe();
   }
 
 }

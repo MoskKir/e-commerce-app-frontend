@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +15,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginPageComponent } from './user-login-page/user-login-page.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthCustomersService } from './shared/auth-customers.service';
 import { AuthEffects } from './shared/store/user/auth.effects';
 import { reducers } from './shared/store/app.states';
 import { AuthModule } from './shared/store/auth.module';
+import { CustomerMainMenuComponent } from './customer-main-menu/customer-main-menu.component';
+import { TokenInterceptor } from './shared/auth-customers-token.interceptor';
+
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['auth'], rehydrate: true})(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [
@@ -28,7 +38,8 @@ import { AuthModule } from './shared/store/auth.module';
     ProductPageComponent,
     CartPageComponent,
     SignUpPageComponent,
-    UserLoginPageComponent
+    UserLoginPageComponent,
+    CustomerMainMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -36,16 +47,26 @@ import { AuthModule } from './shared/store/auth.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(
+      reducers,
+      {metaReducers}
+      ),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    AuthModule, // уточнить этот вопрос
+    AuthModule,
+    ClickOutsideModule,
   ],
-  providers: [AuthCustomersService],
+  providers: [
+    AuthCustomersService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,22 @@
     <li routerLinkActive="active">
       <a [routerLink]="['/cart']">Cart</a>
     </li>
+  </ul>
+  <div *ngIf="isAuthenticated; then Authenticated; else notAuthenticated;"></div>
+</nav>
+<router-outlet></router-outlet>
+
+<ng-template #Authenticated>
+  <div (click)="isShowCustomerMenu=true" (clickOutside)="isShowCustomerMenu=false">
+    <div *ngIf="isShowCustomerMenu">
+      <app-customer-main-menu></app-customer-main-menu>
+    </div>
+    <a>Account</a>
+  </div>
+</ng-template>
+
+<ng-template #notAuthenticated>
+  <ul>
     <li routerLinkActive="active">
       <a [routerLink]="['/login']">Login</a>
     </li>
@@ -20,5 +36,4 @@
       <a [routerLink]="['/sing-up']">Sign up</a>
     </li>
   </ul>
-</nav>
-<router-outlet></router-outlet>
+</ng-template>
