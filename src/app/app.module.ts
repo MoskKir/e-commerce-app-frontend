@@ -12,6 +12,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
+import { ProductCardComponent } from './product-card/product-card.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLoginPageComponent } from './user-login-page/user-login-page.component';
@@ -37,6 +39,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     MainPageComponent,
     ProductPageComponent,
     CartPageComponent,
+    ProductCardComponent,
     SignUpPageComponent,
     UserLoginPageComponent,
     CustomerMainMenuComponent
@@ -45,6 +48,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    QuillModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forRoot(

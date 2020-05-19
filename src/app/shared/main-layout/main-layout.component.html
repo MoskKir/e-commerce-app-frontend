@@ -16,7 +16,10 @@
   </ul>
   <div *ngIf="isAuthenticated; then Authenticated; else notAuthenticated;"></div>
 </nav>
-<router-outlet></router-outlet>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
 
 <ng-template #Authenticated>
   <div (click)="isShowCustomerMenu=true" (clickOutside)="isShowCustomerMenu=false">
