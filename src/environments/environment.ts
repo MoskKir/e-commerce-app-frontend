@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiKey: 'AIzaSyCH28YiBBy13GGaRyejgNAsPLGya_XV-I4',
-  apiBEUrl: 'http://localhost:3003/api/'
+  apiBEUrl: 'http://localhost:3003/api/',
+
 };
 
 /*
