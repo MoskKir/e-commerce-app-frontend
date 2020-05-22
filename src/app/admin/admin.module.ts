@@ -28,8 +28,17 @@ import { QuillModule } from 'ngx-quill';
       ]}
     ])
   ],
-  exports: [RouterModule],
-  declarations: [AdminLayoutComponent, LoginPageComponent, AddPageComponent, DashboardPageComponent, EditPageComponent, OrdersPageComponent]
+  exports: [
+    RouterModule
+  ],
+  declarations: [
+    AdminLayoutComponent,
+    LoginPageComponent,
+    AddPageComponent,
+    DashboardPageComponent,
+    EditPageComponent,
+    OrdersPageComponent
+  ]
 })
 
 export class AdminModule {
