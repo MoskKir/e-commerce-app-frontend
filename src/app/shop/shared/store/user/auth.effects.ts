@@ -18,23 +18,12 @@ export class AuthEffects {
   ) {}
 
   @Effect()
-  LogIn: Observable<any> = this.actions
-    .pipe(
-      ofType(AuthActionTypes.LOGIN),
-      map((action: LogIn) => action.payload),
-      switchMap(payload => {
-        return this.authService.login(payload)
-          .pipe(
-            map((user) => {
-              return new LogInSuccess(user);
-            }),
-            catchError((error) => {
-              console.log(error.error);
-              return of(new LogInFailure(error));
-            })
-        )
-      })
-    )
+  LogIn: Observable<any> = this.actions.pipe(
+    ofType<LogIn>(AuthActionTypes.LOGIN),
+    switchMap(action => this.authService.login(action.payload)),
+    map(user => new LogInSuccess(user)),
+    catchError(error => of(new LogInFailure(error)))
+  )
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(
