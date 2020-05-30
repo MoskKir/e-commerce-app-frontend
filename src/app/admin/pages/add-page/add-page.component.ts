@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/shop/services/product.service';
 export class AddPageComponent implements OnInit {
 
   form: FormGroup;
-  submitted = false;
+  selectedFile: any = null;
 
   constructor(
     private productService: ProductService
@@ -27,24 +27,27 @@ export class AddPageComponent implements OnInit {
     })
   }
 
-  submit() {
-    if (this.form.invalid) {
-      return
-    }
+  onFileSelected(event) {
+    this.selectedFile = event.target.files[0];
+  }
 
-    this.submitted = true;
+  submit() {
+    let formData: any = new FormData();
+
 
     const product = {
-      type: this.form.value.type,
-      title: this.form.value.title,
-      photo: this.form.value.photo,
-      info: this.form.value.info,
-      price: this.form.value.price,
-      date: new Date()
-    }
+        type: this.form.value.type,
+        title: this.form.value.title,
+        photo: this.selectedFile.name,
+        info: this.form.value.info,
+        price: this.form.value.price,
+        date: new Date()
+      }
 
-    // console.log(product)
-    this.productService.addProduct(product).subscribe( res => console.log(res))
+    formData.append("productPhoto", this.selectedFile);
+    formData.append("product", JSON.stringify(product));
+
+    this.productService.addProduct(formData).subscribe( (res) => console.log(res))
   }
 
 }

@@ -26,7 +26,7 @@
 
   <div class="form-control">
     <label for="photo">Photo:</label>
-    <quill-editor formControlName="photo"></quill-editor>
+    <input type="file" name="productPhoto" formControlName="photo" (change)="onFileSelected($event)">
   </div>
 
   <div class="form-control">
@@ -45,7 +45,6 @@
   <button
     type="submit"
     class="btn btn-primary btn-block"
-    [disabled]="form.invalid || submitted"
   >
     Add
   </button>
