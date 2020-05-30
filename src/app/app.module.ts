@@ -16,7 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthCustomersService } from './shop/services/auth-customers.service';
 import { AuthEffects } from './shop/shared/store/user/auth.effects';
 import { reducers } from './shop/shared/store/app.states';
-import { TokenInterceptor } from './shop/services/auth-customers-token.interceptor';
+import { TokenInterceptor, ErrorInterceptor } from './shop/services/auth-customers-token.interceptor';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({keys: ['auth'], rehydrate: true})(reducer);
@@ -50,6 +50,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
