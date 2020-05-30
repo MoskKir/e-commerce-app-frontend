@@ -6,6 +6,13 @@
 
     <h2>Login</h2>
 
+    <div *ngIf="errorMessage">
+      <div class="alert alert-danger" >
+        Error
+        {{errorMessage}}
+      </div>
+    </div>
+
     <div class="form-control">
       <label for="email">Email</label>
       <input id="email" type="email" formControlName="email">
@@ -29,7 +36,6 @@
     <button
       type="submit"
       class="btn btn-primary btn-block"
-      [disabled]="form.invalid || submitted"
     >
       Login
     </button>
