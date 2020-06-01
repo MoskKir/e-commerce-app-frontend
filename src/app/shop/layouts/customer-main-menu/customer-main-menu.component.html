@@ -1,0 +1,16 @@
+<div class="select-container">
+  <ul>
+    <li>
+      <a href="#">Account</a>
+    </li>
+
+    <hr>
+
+    <li>
+      {{user.name}}
+    </li>
+    <li>
+      <a [routerLink]="['/']" (click)="logOut()">Sing out</a>
+    </li>
+  </ul>
+</div>
