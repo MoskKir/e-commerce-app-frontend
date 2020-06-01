@@ -6,7 +6,7 @@
 
     <h2>Login</h2>
 
-    <div *ngIf="errorMessage">
+    <div *ngIf="getErrorMessage | async">
       <div class="alert alert-danger" >
         Error
         {{errorMessage}}

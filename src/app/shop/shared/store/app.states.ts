@@ -1,5 +1,5 @@
 import * as auth from './user/auth.reducers';
-import { createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface AppState {
   authState: auth.State;
@@ -10,3 +10,10 @@ export const reducers = {
 };
 
 export const selectAuthState = createFeatureSelector<AppState>('auth');
+
+// const selectUsers = (state: AppState) => state
+
+export const selectErrorMessage = createSelector(
+    selectAuthState,
+    (selectAuthState: any) => selectAuthState.errorMessage
+);

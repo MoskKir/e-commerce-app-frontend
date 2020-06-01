@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AuthCustomersService } from '../../services/auth-customers.service';
-import { AppState, selectAuthState } from '../../shared/store/app.states';
+import { AppState, selectAuthState, selectErrorMessage } from '../../shared/store/app.states';
 import { LogIn } from '../../shared/store/user/auth.actions';
 import { Observable } from 'rxjs';
 
@@ -15,25 +15,19 @@ import { Observable } from 'rxjs';
 })
 export class UserLoginPageComponent implements OnInit {
   form: FormGroup;
-  getState: Observable<any>;
-  errorMessage: string | null;
+  getErrorMessage: Observable<any> = this.store.select(selectErrorMessage);
 
   constructor(
     public auth: AuthCustomersService,
-    private router: Router,
     private store: Store<AppState>
   ) {
-    this.getState = this.store.select(selectAuthState);
+
   }
 
   ngOnInit() {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-    });
-
-    this.getState.subscribe((state) => {
-      this.errorMessage = state.errorMessage;
     });
   }
 
