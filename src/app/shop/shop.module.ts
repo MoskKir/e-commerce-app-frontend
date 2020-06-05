@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -36,6 +37,7 @@ import { CustomerMainMenuComponent } from './layouts/customer-main-menu/customer
     ]),
     UserStoreModule,
     ClickOutsideModule,
+    NgxPaginationModule,
   ],
   exports: [
     RouterModule

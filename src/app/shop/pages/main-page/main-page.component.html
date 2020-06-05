@@ -1,5 +1,13 @@
 <div *ngIf="products$ | async as products" class="dashboard">
 
-  <app-product-card *ngFor="let product of products" [product]="product" class="box"></app-product-card>
+  <app-product-card
+    *ngFor="let product of products |
+      paginate: {
+        itemsPerPage: 6,
+        currentPage: p }"
+    [product]="product"
+    class="box"></app-product-card>
 
-</div>
+  </div>
+
+  <pagination-controls (pageChange)="setPage($event)" class="flex-center"></pagination-controls>

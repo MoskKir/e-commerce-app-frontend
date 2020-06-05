@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -8,7 +9,8 @@ import { ProductService } from '../../services/product.service';
 })
 export class MainPageComponent implements OnInit {
 
-  products$
+  products$: Observable<any>;
+  p: number = 1;
 
   constructor(
     private productServ: ProductService
@@ -16,6 +18,10 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
     this.products$ = this.productServ.getAll();
+  }
+
+  setPage($event) {
+    this.p = $event
   }
 
 }
